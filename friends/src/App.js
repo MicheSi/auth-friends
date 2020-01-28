@@ -13,6 +13,7 @@ function App() {
     <div className="App">
       <h1>My Friends Project</h1>
       <NavLink to='/login'>Log In</NavLink>
+      <NavLink to='friends'>My Friends</NavLink>
 
       <Switch>
         <PrivateRoute path='/friends' component={FriendsList}/>
