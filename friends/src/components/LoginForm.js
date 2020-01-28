@@ -56,7 +56,7 @@ const FormikLoginForm = withFormik({
         .then(res => {
             console.log('success', res);
             localStorage.setItem('token', res.data.payload);
-            props.history.push('/friendslist')
+            props.history.push('/friends')
         })
         .catch(err => console.log('error', err))
     }

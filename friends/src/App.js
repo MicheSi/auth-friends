@@ -1,9 +1,12 @@
 import React from 'react';
-import { Route, NavLink } from 'react-router-dom';
+import { Route, NavLink, Switch } from 'react-router-dom';
 
 import FormikLoginForm from './components/LoginForm';
+import FriendsList from './components/FriendsList';
+import PrivateRoute from './components/PrivateRoute';
 
 import './App.css';
+
 
 function App() {
   return (
@@ -11,9 +14,12 @@ function App() {
       <h1>My Friends Project</h1>
       <NavLink to='/login'>Log In</NavLink>
 
-      <Route exact path='/login'>
-        <FormikLoginForm />
-      </Route>
+      <Switch>
+        <PrivateRoute path='/friends' component={FriendsList}/>
+        <Route exact path='/login'>
+          <FormikLoginForm />
+        </Route>
+      </Switch>
     </div>
   );
 }
