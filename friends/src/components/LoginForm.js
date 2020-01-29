@@ -1,67 +1,68 @@
-import React, { useState, useEffect, useHistory } from 'react';
-import {withFormik, Form, Field} from 'formik';
-import * as Yup from 'yup';
+import React from 'react';
+
 import axios from 'axios';
 
-const LoginForm = ({ values, errors, touched, status }) => {
-    const [user, setUser] = useState([]);
 
-    const {push} = useHistory();
+class LoginForm extends React.Component {
+    state = {
+        credentials: {
+            username: '',
+            password: ''
+        }
+    }
 
-    useEffect(() => {
-        console.log('status has changed', status);
-        status && setUser(user => [...user, status]);
-    }, [status])
+    handleChange = e => {
+        this.setState({
+            credentials: {
+                ...this.state.credentials,
+                [e.target.name]: e.target.value
+            }
+        })
+    }
 
-    return (
-        <div className='loginForm'>
-            <Form>
-                <label htmlFor='username'>Username:</label>
-                <Field
-                 id='username'
-                 type='text'
-                 name='username'
-                />
-                {touched.username && errors.username && (
-                     <p className='errors'>{errors.username}</p>
-                )}
-                <label htmlFor='password'>Password:</label>
-                <Field
-                 id='password'
-                 type='text'
-                 name='password'
-                />
-                {touched.password && errors.password && (
-                     <p className='errors'>{errors.password}</p>
-                )}
-                <button type='submit'>Log In</button>
-            </Form>
-        </div>
-    )
-}
-
-const FormikLoginForm = withFormik({
-    mapPropsToValues({ username, password }) {
-        return {
-            username: username || '',
-            password: password || ''
-        };
-    },
-    validationSchema: Yup.object().shape({
-        username: Yup.string().required(),
-        password: Yup.string().required()
-    }),
-    handleSubmit(values, {push}) {
-        console.log('submitting', values);
+    login = e => {
+        e.preventDefault();
         axios
-        .post('http://localhost:5000/api/login', values)
+        .post('http://localhost:5000/api/login', this.state.credentials)
         .then(res => {
             console.log('success', res);
             localStorage.setItem('token', res.data.payload);
-            push('/friends')
+            this.props.history.push('/friends')
         })
         .catch(err => console.log('error', err))
-    }
-})(LoginForm)
+    };
 
-export default FormikLoginForm;
+    render() {
+        return (
+            <div className='loginForm'>
+            <form onSubmit={this.login}>
+                <label htmlFor='username'>Username:</label>
+                <input
+                 required
+                 id='username'
+                 type='text'
+                 name='username'
+                 value={this.state.credentials.username}
+                 onChange={this.handleChange}
+                />
+                
+                <label htmlFor='password'>Password:</label>
+                <input
+                 required
+                 id='password'
+                 type='text'
+                 name='password'
+                 value={this.state.credentials.password}
+                 onChange={this.handleChange}
+                />
+                
+                <button type='submit'>Log In</button>
+            </form>
+        </div>
+        )
+
+    }
+}    
+
+
+export default LoginForm;
