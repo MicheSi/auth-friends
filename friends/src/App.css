@@ -2,8 +2,15 @@ html, body {
   box-sizing: border-box;
 }
 
+html {
+  background-image: url('./friends.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+}
+
 .App {
   text-align: center;
+  color: white;
 }
 
 nav {
@@ -14,7 +21,15 @@ nav {
 
 nav a {
   text-decoration: none;
-  color: black;
+  color: white;
+}
+
+nav a:hover {
+  color: gold;
+}
+
+nav a.active {
+  color: gold;
 }
 
 button {
@@ -48,6 +63,6 @@ input {
 
 .friendCard {
   width: 25%;
-  border: 5px dotted black;
+  border: 5px dotted white;
   margin: 2% 0;
 }
