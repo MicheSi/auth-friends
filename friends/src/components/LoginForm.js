@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useHistory } from 'react';
 import {withFormik, Form, Field} from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
-const LoginForm = ({ props, values, errors, touched, status }) => {
+const LoginForm = ({ values, errors, touched, status }) => {
     const [user, setUser] = useState([]);
+
+    const {push} = useHistory();
 
     useEffect(() => {
         console.log('status has changed', status);
@@ -49,14 +51,14 @@ const FormikLoginForm = withFormik({
         username: Yup.string().required(),
         password: Yup.string().required()
     }),
-    handleSubmit(values, props) {
+    handleSubmit(values, {push}) {
         console.log('submitting', values);
         axios
         .post('http://localhost:5000/api/login', values)
         .then(res => {
             console.log('success', res);
             localStorage.setItem('token', res.data.payload);
-            props.history.push('/friends')
+            push('/friends')
         })
         .catch(err => console.log('error', err))
     }
