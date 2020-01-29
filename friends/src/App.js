@@ -13,7 +13,6 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>My Friends Project</h1>
       <nav>
         <NavLink to='/login'>Log In</NavLink>
         <NavLink to='/friends'>My Friends</NavLink>

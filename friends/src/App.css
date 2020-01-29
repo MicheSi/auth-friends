@@ -3,7 +3,7 @@ html, body {
 }
 
 html {
-  background-image: url('./friends.jpg');
+  background-image: url('./friendsBG.jpg');
   background-attachment: fixed;
   background-size: cover;
 }
@@ -22,14 +22,15 @@ nav {
 nav a {
   text-decoration: none;
   color: white;
+  font-size: 20px;
 }
 
 nav a:hover {
-  color: gold;
+  color: mediumturquoise;
 }
 
 nav a.active {
-  color: gold;
+  color: deeppink;
 }
 
 button {
@@ -37,6 +38,13 @@ button {
   height: 30px;
   border-radius: 5px;
   margin-top: 1%;
+  background-color: lightcyan;
+  border: none;
+}
+
+button:hover {
+  background-color: deeppink;
+  color: mediumturquoise;
 }
 
 form {
